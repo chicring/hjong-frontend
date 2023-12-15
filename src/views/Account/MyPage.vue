@@ -1,26 +1,26 @@
 <template>
   <v-container class="d-flex justify-space-between">
     <v-sheet width="500">
-      <v-card height="310" flat rounded="xl" color="#f7f7f7">
-        <div class="d-flex justify-center w-100 mt-3">
-          <v-avatar size="80" :image="store.account.avatar"></v-avatar>
-
-        </div>
-
-        <v-card-title class="text-center">{{store.account.userName}}</v-card-title>
-        <v-card-subtitle class="text-center">{{store.account.introduction || '暂无简介'}}</v-card-subtitle>
-        <v-card-subtitle>邮箱：{{store.account.email}}</v-card-subtitle>
-        <v-card-subtitle></v-card-subtitle>
-        <v-card-subtitle>注册日期: {{store.account.createTime}}</v-card-subtitle>
-
+      <v-card  flat rounded="xl" color="#f7f7f7" @mouseenter="showBtn = true" @mouseleave="showBtn = false">
+          <div class="d-flex justify-center w-100 mt-3">
+            <v-avatar size="80" :image="store.account.avatar"></v-avatar>
+          </div>
+          <v-card-title class="text-center">{{store.account.userName}}</v-card-title>
+          <v-card-subtitle class="text-center">{{store.account.introduction || '暂无简介'}}</v-card-subtitle>
+          <v-card-subtitle>邮箱：{{store.account.email}}</v-card-subtitle>
+          <v-card-subtitle></v-card-subtitle>
+          <v-card-subtitle>注册日期: {{store.account.createTime}}</v-card-subtitle>
         <v-card-text>
           <div>
-            <v-chip label size="small">分享次数: 12</v-chip>
+            <v-chip label size="small">动态数量: {{list.length}}</v-chip>
           </div>
           <div class="mt-2">
             <v-chip label size="small">下载次数: 242</v-chip>
           </div>
         </v-card-text>
+        <transition name="fade">
+         <v-btn v-if="showBtn" class="mb-2" rounded="xl" flat block @click="dialog = true">修改用户资料</v-btn>
+        </transition>
       </v-card>
 
       <v-sheet>
@@ -49,14 +49,16 @@
       </v-infinite-scroll>
     </v-sheet>
 
+    <UpdateUserInfo></UpdateUserInfo>
   </v-container>
 </template>
 <script setup>
 import Dynamic from "@/components/Dynamic.vue";
-import {onMounted, ref} from 'vue'
+import {onMounted, ref, provide} from 'vue'
 import request from "@/requests/myAxios";
 import {store} from "@/store/store";
-
+import UpdateUserInfo from "@/components/UpdateUserInfo.vue";
+const showBtn = ref(false)
 const items = ref(Array.from({ length: 50 }, (k, v) => v + 1))
 function load ({ done }) {
   setTimeout(() => {
@@ -64,6 +66,9 @@ function load ({ done }) {
     done('ok')
   }, 1000)
 }
+
+const dialog = ref(false)
+provide("dialog",dialog)
 
 const current = ref(1)
 const list = ref([])
@@ -84,3 +89,13 @@ onMounted(() =>{
   getList()
 })
 </script>
+
+
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+</style>

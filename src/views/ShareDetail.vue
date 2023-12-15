@@ -51,7 +51,7 @@
             <v-btn color="#476586" variant="tonal" block>分享</v-btn>
           </v-col>
           <v-col cols="2">
-            <v-btn color="#476586" block :href="url" @click="toast.success('加入下载成功') , console.log(url)">下载</v-btn>
+            <v-btn color="#476586" block :href="url" @click="getDownload">下载</v-btn>
           </v-col>
         </v-row>
 
@@ -111,7 +111,6 @@ let step = ref(1)
 let pwd = ref('')
 let shareDetail = ref({})
 
-
 let url = null
 
 function getShare(){
@@ -160,6 +159,15 @@ const formatDate = (value,type) => {
   }
   return formattedDate;
 };
+
+function getDownload() {
+  toast.success('加入下载成功')
+  let History = JSON.parse(localStorage.getItem('History')) || [];
+  History.push(shareDetail.value)
+  localStorage.setItem('History',JSON.stringify(History))
+  console.log(url)
+}
+
 onMounted( ()=>{
   getShare()
 })

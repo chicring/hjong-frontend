@@ -22,8 +22,19 @@
     </template>
     <v-sheet class="w-100" elevation="1" rounded="xl" style="background-color: transparent; backdrop-filter: blur(1px);">
       <v-list>
-        <v-list-item v-for="(item,index) in list" :key="item.post_id">
-          <v-list-item-title>{{item.post_content}}</v-list-item-title>
+        <v-list-item rounded="xl" v-for="(item,index) in list" :key="item.post_id" :to=" '/d/'+ item.post_id">
+          <v-list-item-title><strong>{{item.post_content}}</strong></v-list-item-title>
+          <template v-slot:prepend>
+            <v-avatar :image="item.user.avatar"></v-avatar>
+<!--            <span class="ml-2">{{item.user.user_name}}: </span>-->
+          </template>
+          <template v-slot:append>
+            <v-chip size="small" label :text="findTag(item.type_id).name">
+              <template v-slot:prepend>
+                <v-icon :color="findTag(item.type_id).color" :icon="findTag(item.type_id).icon"></v-icon>
+              </template>
+            </v-chip>
+          </template>
         </v-list-item>
       </v-list>
     </v-sheet>
@@ -34,6 +45,7 @@
 
 import {ref} from "vue";
 import request from "@/requests/myAxios";
+import {Tags} from "@/components/tags";
 
 const content = ref('')
 const list = ref([])
@@ -57,4 +69,7 @@ function search(){
   }
 }
 
+function findTag(typeId){
+  return Tags.find(tag => tag.value === typeId)
+}
 </script>

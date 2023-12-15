@@ -21,7 +21,7 @@
           color="secondary"
       >
         <template v-for="(share, index) in list" :key="share.share_id">
-          <v-list-item rounded="lg" :value="share">
+          <v-list-item rounded="lg" :value="share" :to=" '/s/'+ share.share_link">
             <v-row no-gutters align="center">
               <v-col cols="8">
                 <div class="d-flex align-center">
@@ -49,7 +49,7 @@
         </template>
 
         <template v-slot:empty>
-          <v-alert density="comfortable" rounded="lg" type="info" border="start">没有更多了</v-alert>
+          <v-alert density="comfortable" rounded="lg" type="info" border="start">没有更多分享了</v-alert>
         </template>
       </v-infinite-scroll>
 
@@ -66,6 +66,7 @@ let toggle = ref(null)
 let list = ref([])
 const current = ref(1)
 const pages = ref(1)
+
 function getShareList(){
   request({
     method: 'GET',
