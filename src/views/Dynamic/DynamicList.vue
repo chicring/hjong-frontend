@@ -18,7 +18,7 @@
     </v-sheet>
     <v-sheet class="fixed-sheet" width="335" max-height="600" rounded="xl">
       <div class="pa-3">
-        <v-btn class="my-3" width="250" flat block rounded="lg" color="#4d698e" @click="showSend = !showSend">发布动态</v-btn>
+        <v-btn class="my-3" width="250" flat block rounded="lg" color="#4d698e" @click="show">发布动态</v-btn>
 
         <v-chip prepend-icon="mdi-forum" label color="success" >主题</v-chip>
         <div>
@@ -49,14 +49,14 @@
       </div>
     </v-sheet>
 
-    <send-post v-if="showSend"></send-post>
+    <send-post ref="showSend"></send-post>
   </v-container>
 </template>
 <script setup>
 import Dynamic from "@/components/Dynamic.vue";
 import Search from "@/components/Search.vue";
 import RankingList from "@/components/RankingList.vue";
-import {onMounted, ref, provide} from "vue";
+import {onMounted, ref} from "vue";
 import request from "@/requests/myAxios";
 import SendPost from "@/components/sendPost.vue";
 import { Tags } from "@/components/tags"
@@ -65,8 +65,11 @@ const tags = Tags
 
 const current = ref(1)
 const list = ref([])
-const showSend = ref(false)
-provide("showSend",showSend)
+
+const showSend = ref()
+function show(){
+  showSend.value.showComponent()
+}
 
 const selectTag = ref('')
 function getList(){
@@ -88,10 +91,10 @@ function getList(){
 }
 
 function load({done}){
-  current.value++
   if( current.value * 20 > list.value.length){
     done('empty')
   }else {
+    current.value++
     getList()
     done('ok')
   }

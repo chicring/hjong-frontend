@@ -23,7 +23,7 @@
               <!--          </v-col>-->
               <v-col cols="6"><v-btn class="font-weight-medium" rounded="lg" variant="tonal" block color="#0c7792" @click="step = 2">注册</v-btn></v-col>
               <v-col cols="6"><v-btn class="font-weight-medium" rounded="lg" variant="tonal" block color="#006adc" @click="toLogin">登录</v-btn></v-col>
-              <v-col cols="12"><v-btn class="font-weight-medium" rounded="lg" variant="tonal" block color="#5746af" @click="router.push('/')">以游客身份浏览</v-btn></v-col>
+              <v-col cols="12"><v-btn class="font-weight-medium" rounded="lg" variant="tonal" block color="#5746af" :to="'/'">以游客身份浏览</v-btn></v-col>
               <v-col>
                 <div class="justify-space-around d-flex">
                   <v-icon size="30" color="#90969c">mdi-wechat</v-icon>

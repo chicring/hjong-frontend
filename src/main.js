@@ -18,6 +18,7 @@ import 'vue-toastification/dist/index.css'
 const app = createApp(App)
 
 registerPlugins(app)
+//通知插件
 app.use(Toast, {
   transition: "Vue-Toastification__bounce",
   timeout: 4000,

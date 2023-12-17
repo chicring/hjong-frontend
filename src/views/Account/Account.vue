@@ -3,6 +3,7 @@
   import router from "@/router";
   import {store} from "@/store/store";
   import { useToast } from 'vue-toastification'
+  import Icon from "@/components/icon/Icon.vue";
 
   const toast = useToast();
   const items = [
@@ -51,19 +52,19 @@
       >
         <template v-slot:prepend>
           <div class="d-flex justify-space-between">
-            <div>
-              <v-icon size="60">mdi-circle-slice-4</v-icon>
-              驼鹿快传
+            <div class="d-flex align-center">
+              <Icon></Icon>
+              <span>驼鹿快传</span>
             </div>
 
-            <v-btn color="#f7f7f7" icon="mdi-reply" flat @click="router.push('/');"></v-btn>
+            <v-btn color="#f7f7f7" icon="mdi-reply" flat :to="'/'"></v-btn>
 
           </div>
         </template>
 
         <v-spacer class="py-15"></v-spacer>
         <v-list color="transparent" v-for="item in items" :key="item.value" density="compact" nav >
-          <v-list-item color="primary" :prepend-icon="item.icon" :title="item.title" :to="item.to" ></v-list-item>
+          <v-list-item rounded="lg" color="primary" :prepend-icon="item.icon" :title="item.title" :to="item.to" ></v-list-item>
         </v-list>
 
         <template v-slot:append>

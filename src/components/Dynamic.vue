@@ -22,20 +22,20 @@
       <v-row justify="space-around">
         <v-spacer></v-spacer>
         <v-col cols="3">
-          <v-badge :content="props.post.likes_count" color="#d3e5ef" offset-x="-4">
-            <v-icon>mdi-thumb-up</v-icon>
+          <v-badge :content="props.post.likes_count" color="#d3e5ef" offset-y="8">
+            <v-btn size="small" flat icon="mdi-thumb-up-outline"></v-btn>
           </v-badge>
         </v-col>
         <v-spacer></v-spacer>
         <v-col cols="3">
-          <v-badge :content="props.post.comments_count" color="#d3e5ef" offset-x="-4">
-            <v-icon>mdi-comment-multiple</v-icon>
+          <v-badge :content="props.post.comments_count" color="#d3e5ef" offset-y="8">
+            <v-btn size="small" flat icon="mdi-comment-multiple-outline"></v-btn>
           </v-badge>
         </v-col>
         <v-spacer></v-spacer>
 
         <v-col col="3">
-          <v-icon>mdi-share</v-icon>
+          <v-btn @click="shareCopy" size="small" flat icon="mdi-share-outline"></v-btn>
         </v-col>
       </v-row>
     </div>
@@ -55,6 +55,20 @@
 
 import {Tags} from "@/components/tags";
 import {onMounted, ref} from "vue";
+import useClipboard from 'vue-clipboard3'
+import { useToast } from 'vue-toastification'
+const toast = useToast();
+const { toClipboard } = useClipboard()
+
+function shareCopy(){
+  try {
+    let message = "分享链接: " + window.location.href
+    toClipboard(message)
+    toast.success("已复制分享链接到剪切版")
+  } catch (e) {
+    console.error(e)
+  }
+}
 
 const props = defineProps({
   post: {type: Object}

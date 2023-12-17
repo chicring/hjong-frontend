@@ -1,10 +1,14 @@
 <script setup>
 import {ref,inject} from "vue";
 import request from "@/requests/myAxios";
-const DetailShow = inject("DetailShow");
+import useClipboard from 'vue-clipboard3'
 import { useToast } from 'vue-toastification'
-
 const toast = useToast();
+
+
+
+
+const DetailShow = inject("DetailShow");
 let is_private = ref()
 const states = [6, 12, 24, 36, 48]
 const files = ref({
@@ -53,9 +57,19 @@ function upload(){
     }
   })
 }
-
+const { toClipboard } = useClipboard()
 function copyAll(){
-
+  try {
+    let message = "分享链接:" + share.value.link
+    console.log(share.value.pwd)
+    if(share.value.pwd !== undefined){
+      message = message.concat(" 密码:" + share.value.pwd)
+    }
+    toClipboard(message)
+    toast.info("已复制链接到剪贴版")
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 </script>

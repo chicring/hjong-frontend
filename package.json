@@ -18,6 +18,7 @@
     "roboto-fontface": "*",
     "vfonts": "^0.0.3",
     "vue": "^3.2.0",
+    "vue-clipboard3": "^2.0.0",
     "vue-router": "^4.0.0",
     "vue-toastification": "^2.0.0-rc.5",
     "vuetify": "^3.0.0"

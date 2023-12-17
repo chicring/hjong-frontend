@@ -19,7 +19,7 @@
           </div>
         </v-card-text>
         <transition name="fade">
-         <v-btn v-if="showBtn" class="mb-2" rounded="xl" flat block @click="dialog = true">修改用户资料</v-btn>
+         <v-btn color="#446388" v-if="showBtn" class="mb-2" rounded="xl" flat block="" @click="dialog = true">修改用户资料</v-btn>
         </transition>
       </v-card>
 

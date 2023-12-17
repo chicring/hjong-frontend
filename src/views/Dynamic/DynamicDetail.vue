@@ -1,6 +1,20 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import request from "@/requests/myAxios";
+import useClipboard from 'vue-clipboard3'
+import { useToast } from 'vue-toastification'
+const toast = useToast();
+const { toClipboard } = useClipboard()
+
+function shareCopy(){
+  try {
+    let message = "分享链接: " + window.location.href
+    toClipboard(message)
+    toast.success("已复制分享链接到剪切版")
+  } catch (e) {
+    console.error(e)
+  }
+}
 
 const props = defineProps({
   id: {required: true,type: String,}
@@ -48,13 +62,13 @@ onMounted(()=>{
     </div>
 
     <div class="px-4 pb-2 d-flex justify-lg-space-around">
-      <v-badge :content="detail?.likes_count" color="#d3e5ef" offset-x="-4">
-        <v-icon>mdi-thumb-up</v-icon>
+      <v-badge :content="detail?.likes_count" color="#d3e5ef" offset-y="8">
+        <v-btn size="small" flat icon="mdi-thumb-up-outline"></v-btn>
       </v-badge>
-      <v-badge :content="detail?.comments_count" color="#d3e5ef" offset-x="-4">
-        <v-icon>mdi-comment-multiple</v-icon>
+      <v-badge :content="detail?.comments_count" color="#d3e5ef" offset-y="8">
+        <v-btn size="small" flat icon="mdi-comment-multiple-outline"></v-btn>
       </v-badge>
-      <v-icon>mdi-share</v-icon>
+      <v-btn size="small" flat icon="mdi-share-outline" @click="shareCopy"></v-btn>
     </div>
   </v-card>
 </v-container>

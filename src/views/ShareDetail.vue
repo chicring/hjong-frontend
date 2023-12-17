@@ -19,7 +19,7 @@
           <v-col cols="4">
           </v-col>
           <v-col cols="4">
-            <v-text-field counter v-model="pwd" flat variant="solo-filled" placeholder="请输入取件码"></v-text-field>
+            <v-text-field class="text-h5 font-weight-black" counter v-model="pwd" flat variant="solo-filled" placeholder="请输入取件码"></v-text-field>
           </v-col>
           <v-col cols="4">
           </v-col>
@@ -48,25 +48,12 @@
           </v-col>
           <v-spacer></v-spacer>
           <v-col cols="2">
-            <v-btn color="#476586" variant="tonal" block>分享</v-btn>
+            <v-btn color="#476586" variant="tonal" block @click="shareCopy">分享</v-btn>
           </v-col>
           <v-col cols="2">
             <v-btn color="#476586" block :href="url" @click="getDownload">下载</v-btn>
           </v-col>
         </v-row>
-
-<!--        <v-row>-->
-<!--          <v-col>-->
-<!--            <v-radio-group-->
-<!--              inline-->
-<!--            >-->
-<!--              <v-radio-->
-<!--                label="全选"-->
-<!--                value="radio-1"-->
-<!--              ></v-radio>-->
-<!--            </v-radio-group>-->
-<!--          </v-col>-->
-<!--        </v-row>-->
 
         <v-row dense class="mt-5">
           <v-col cols="3" v-for="file in shareDetail.file" :key="file.fileId">
@@ -89,6 +76,16 @@
         </v-row>
         </div>
       </v-window-item>
+
+      <v-window-item :value="3">
+        <v-card rounded="lg">
+          <div class="justify-center d-flex">
+            <NotFound></NotFound>
+          </div>
+          <v-card-subtitle class="text-center pb-5 text-h6"> 文件不存在或已过期</v-card-subtitle>
+
+        </v-card>
+      </v-window-item>
     </v-window>
   </v-container>
 
@@ -97,9 +94,24 @@
 
 import {onMounted, ref} from "vue";
 import request from "@/requests/myAxios";
+import useClipboard from 'vue-clipboard3'
 import { useToast } from 'vue-toastification'
-
+import NotFound from "@/components/icon/NotFound.vue";
 const toast = useToast();
+const { toClipboard } = useClipboard()
+
+function shareCopy(){
+  try {
+    let message = "分享链接: " + window.location.href
+    if(pwd.value !== ''){
+      message = message.concat(" 密码:" + pwd.value)
+    }
+    toClipboard(message)
+    toast.success("已复制分享链接到剪切版")
+  } catch (e) {
+    console.error(e)
+  }
+}
 
 const props = defineProps({
   id: {
@@ -120,6 +132,7 @@ function getShare(){
     params: { 'link': props.id, 'password':pwd.value}
   }).then( response =>{
     let data = response.data
+    console.log(data)
     if(data.code === 200){
         shareDetail.value = data.data
         if(data.data.file){
@@ -137,6 +150,8 @@ function getShare(){
             toast.error("密码不正确")
           }
         }
+    }else if(data.code === 10010){
+      step.value = 3
     }
   })
 }
