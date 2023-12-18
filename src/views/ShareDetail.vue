@@ -150,7 +150,7 @@ function getShare(){
             toast.error("密码不正确")
           }
         }
-    }else if(data.code === 10010){
+    }else if(data.code === 10010 || data.code === 10014){
       step.value = 3
     }
   })

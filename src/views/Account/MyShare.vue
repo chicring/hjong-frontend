@@ -9,9 +9,9 @@
       color="primary"
       variant="plain"
     >
-      <v-btn >全部</v-btn>
-      <v-btn >生效中</v-btn>
-      <v-btn >已失效</v-btn>
+      <v-btn @click="handleList(2)">全部</v-btn>
+      <v-btn @click="handleList(0)">生效中</v-btn>
+      <v-btn @click="handleList(1)">已失效</v-btn>
     </v-btn-toggle>
 
     <v-sheet>
@@ -20,7 +20,7 @@
           @load="load"
           color="secondary"
       >
-        <template v-for="(share, index) in list" :key="share.share_id">
+        <template v-for="(share, index) in list" :key="index">
           <v-list-item rounded="lg" >
             <v-row no-gutters align="center">
               <v-col cols="7">
@@ -41,15 +41,15 @@
                   <LinkIcon ></LinkIcon>
 
                   <v-menu activator="parent">
-                    <v-sheet class="pa-2" rounded="lg">
+                    <v-sheet class="pa-2" rounded="lg" style=" opacity: 0.95; backdrop-filter: blur(3px);">
                       <v-btn variant="text" block :to=" '/s/'+ share.share_link">查看分享</v-btn>
                       <v-btn class="my-2" variant="text" block @click="copyAll(share)">复制分享</v-btn>
-                      <v-btn variant="text" block @click="delectShare(share.share_id)">删除分享</v-btn>
+                      <v-btn variant="text" block @click="delectShare(share.share_id,index)">删除分享</v-btn>
                     </v-sheet>
                   </v-menu>
                 </v-btn>
 
-                <v-chip color="#8087bd" variant="flat" label size="small">{{share.expire_time}}后过期 </v-chip>
+                <v-chip :color="getColor(share.expire_time)" variant="flat" label size="small" >{{share.expire_time}}过期 </v-chip>
                 <v-chip color="#d3e5ef" variant="flat" class="mx-2" size="small" label>浏览: {{share.views}}</v-chip>
                 <v-chip color="#dbeddb" variant="flat" class="mr-2" size="small" label >下载：{{share.download_counts}}</v-chip>
                 <v-chip v-if="share.password !== null" color="light-green-lighten-4" variant="flat" label size="small" class="pwd-chip">
@@ -73,7 +73,7 @@
 </template>
 <script setup>
 
-import {onMounted, ref} from "vue";
+import {h, onMounted, ref} from "vue";
 import request from "@/requests/myAxios";
 import LinkIcon from "@/components/icon/LinkIcon.vue";
 import useClipboard from 'vue-clipboard3'
@@ -81,9 +81,20 @@ import { useToast } from 'vue-toastification'
 const toast = useToast();
 const { toClipboard } = useClipboard()
 
-let toggle = ref(null)
+let toggle = ref(0)
 
 let list = ref([])
+let expList = ref([])
+function handleList(id){
+  if(id === 0){
+    list.value = expList.value.filter(item => item.is_expire === false);
+  }else if(id === 1){
+    list.value = expList.value.filter(item => item.is_expire === true);
+  }else if(id === 2){
+    list.value = expList.value;
+  }
+  console.log(list.value)
+}
 const current = ref(1)
 const pages = ref(1)
 
@@ -95,8 +106,10 @@ function getShareList(){
   }).then( response =>{
     pages.value = response.data.data.pages
     list.value = list.value.concat(response.data.data.records)
+    expList.value = list.value
   })
 }
+
 function load({done}){
   setTimeout(() => {
     if( current.value >= pages.value ){
@@ -123,16 +136,25 @@ function copyAll(share){
   }
 }
 
-function delectShare(id){
+function delectShare(id,index){
   request.get("/share/detect",{ params: {shareId: id}}).then(
     response => {
       if (response.data.code === 200){
         toast.success(response.data.message)
-        getShareList()
+        list.value.splice(index,1)
       }
     }
   )
 }
+
+function getColor (time) {
+  const currentDate = new Date();
+  const expireTime = new Date(time);
+  if (currentDate < expireTime ){
+    return '#8087bd'
+  } else return '#E0E0E0'
+}
+
 onMounted( () =>{
   getShareList()
 })

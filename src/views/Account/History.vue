@@ -37,5 +37,4 @@
 </template>
 <script setup>
 let History = JSON.parse(localStorage.getItem('History'));
-console.log(History)
 </script>

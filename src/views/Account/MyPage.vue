@@ -15,11 +15,11 @@
             <v-chip label size="small">动态数量: {{list.length}}</v-chip>
           </div>
           <div class="mt-2">
-            <v-chip label size="small">下载次数: 242</v-chip>
+            <v-chip label size="small">下载次数: {{History}}</v-chip>
           </div>
         </v-card-text>
         <transition name="fade">
-         <v-btn color="#446388" v-if="showBtn" class="mb-2" rounded="xl" flat block="" @click="dialog = true">修改用户资料</v-btn>
+         <v-btn color="#446388" v-if="showBtn" class="mb-2" rounded="xl" flat block="" @click="showUpdate.showComponent">修改用户资料</v-btn>
         </transition>
       </v-card>
 
@@ -49,7 +49,7 @@
       </v-infinite-scroll>
     </v-sheet>
 
-    <UpdateUserInfo></UpdateUserInfo>
+    <UpdateUserInfo ref="showUpdate"></UpdateUserInfo>
   </v-container>
 </template>
 <script setup>
@@ -58,6 +58,15 @@ import {onMounted, ref, provide} from 'vue'
 import request from "@/requests/myAxios";
 import {store} from "@/store/store";
 import UpdateUserInfo from "@/components/UpdateUserInfo.vue";
+
+const showUpdate = ref()
+
+let History = 0;
+if (JSON.parse(localStorage.getItem('History')) !== null){
+  History = JSON.parse(localStorage.getItem('History')).length
+}
+
+
 const showBtn = ref(false)
 const items = ref(Array.from({ length: 50 }, (k, v) => v + 1))
 function load ({ done }) {
@@ -67,8 +76,7 @@ function load ({ done }) {
   }, 1000)
 }
 
-const dialog = ref(false)
-provide("dialog",dialog)
+
 
 const current = ref(1)
 const list = ref([])
