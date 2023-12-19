@@ -140,7 +140,7 @@ function getShare(){
         if(data.data.file){
           step.value = 2
           toast.success("查看成功")
-            url = 'http://8.217.183.57:8888/file/download/'
+            url = 'http://127.0.0.1:8888/file/download/'
                 + shareDetail.value.share.shareLink
                 + '/' + shareDetail.value.share.fileId
                 + (pwd.value ? '?password=' + pwd.value : '');

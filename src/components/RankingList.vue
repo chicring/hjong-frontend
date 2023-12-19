@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <v-list v-for="(item,index) in topList" :key="item.share_id">
+    <v-list v-for="(item,index) in topList.slice(0, 6)" :key="item.share_id">
       <v-list-item :to="'/s/'+item.share_link" rounded="lg">
         <template v-slot:prepend>
           <p class="text-red text-h6">{{index + 1}}</p>

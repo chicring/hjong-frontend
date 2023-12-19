@@ -28,7 +28,7 @@
           <v-btn size="small" flat icon="mdi-thumb-up-outline"></v-btn>
         </v-col>
         <v-spacer></v-spacer>
-        <v-col cols="3">
+        <v-col cols="3" v-show="false">
           <v-badge :content="props.post.comments_count" color="#d3e5ef" offset-y="8">
             <v-btn size="small" flat icon="mdi-comment-multiple-outline"></v-btn>
           </v-badge>

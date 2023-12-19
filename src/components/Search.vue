@@ -22,7 +22,7 @@
     </template>
     <v-sheet class="w-100" elevation="1" rounded="xl" style="background-color: transparent; backdrop-filter: blur(1px);">
       <v-list>
-        <v-list-item rounded="xl" v-for="(item,index) in list" :key="item.post_id" :to=" '/d/'+ item.post_id">
+        <v-list-item rounded="xl" v-for="(item,index) in list.slice(0,14)" :key="item.post_id" :to=" '/d/'+ item.post_id">
           <v-list-item-title><strong>{{item.post_title}}</strong></v-list-item-title>
           <template v-slot:prepend>
             <v-avatar :image="item.user.avatar"></v-avatar>

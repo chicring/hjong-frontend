@@ -65,8 +65,8 @@ onMounted(()=>{
       <v-badge :content="detail?.likes_count" color="#d3e5ef" offset-y="8">
         <v-btn size="small" flat icon="mdi-thumb-up-outline"></v-btn>
       </v-badge>
-      <v-badge :content="detail?.comments_count" color="#d3e5ef" offset-y="8">
-        <v-btn size="small" flat icon="mdi-comment-multiple-outline"></v-btn>
+      <v-badge :content="detail?.comments_count" color="#d3e5ef" offset-y="8" v-show="false">
+        <v-btn size="small" flat icon="mdi-comment-multiple-outline" v-show="false"></v-btn>
       </v-badge>
       <v-btn size="small" flat icon="mdi-share-outline" @click="shareCopy"></v-btn>
     </div>

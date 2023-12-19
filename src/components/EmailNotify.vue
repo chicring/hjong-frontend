@@ -8,11 +8,13 @@
         <v-text-field label="内容" density="comfortable" rounded="lg" flat base-color="#ffffff" bg-color="#f1f3f5" color="blue" variant="outlined" v-model="email.content"></v-text-field>
         <v-btn block :disabled="!form" @click="sendMessage" variant="flat" color="#446388" rounded="xl">确认发送</v-btn>
       </v-form>
-      <v-card-subtitle class="mt-2">预览</v-card-subtitle>
-      <v-card-text>
-        <h2 style="color:#446388;font-weight: bold;"> {{email.title}}</h2>
-        <h4 style="font-weight: bold;">{{ email.content }}</h4>
-      </v-card-text>
+      <div class="py-3">
+        <v-card-subtitle >预览</v-card-subtitle>
+        <v-card-text>
+          <h2 style="color:#446388;font-weight: bold;"> {{email.title}}</h2>
+          <h4 style="font-weight: bold;">{{ email.content }}</h4>
+        </v-card-text>
+      </div>
     </v-card>
 
   </v-dialog>

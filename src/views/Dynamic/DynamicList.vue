@@ -123,6 +123,5 @@ onMounted(() =>{
   position: fixed;
   top: 70px;
   right: 200px;
-
 }
 </style>

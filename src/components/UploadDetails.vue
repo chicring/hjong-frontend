@@ -29,9 +29,11 @@ let share = ref({
   expireTime: {type: Date},
   pwd: ''
 })
+
 function onFileChange(event){
   files.value.value = event.target.files[0]
 }
+
 function upload(){
   toast("开始上传，请等待")
   let formData = new FormData()
