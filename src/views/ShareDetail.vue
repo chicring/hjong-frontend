@@ -66,7 +66,8 @@
                 rounded="lg"
               >
                 <div class="d-flex justify-center">
-                  <v-icon size="120">mdi-file</v-icon>
+<!--                  <v-icon size="120">mdi-file</v-icon>-->
+                  <fileicon :width="120" :height="120"></fileicon>
                 </div>
                 <v-card-title class="text-center text-subtitle-2">{{file.fileName}}</v-card-title>
                 <v-card-subtitle class="text-center my-0">{{ formatDate(shareDetail.share.shareTime,2)}}</v-card-subtitle>
@@ -97,6 +98,7 @@ import request from "@/requests/myAxios";
 import useClipboard from 'vue-clipboard3'
 import { useToast } from 'vue-toastification'
 import NotFound from "@/components/icon/NotFound.vue";
+import Fileicon from "@/components/icon/fileicon.vue";
 const toast = useToast();
 const { toClipboard } = useClipboard()
 

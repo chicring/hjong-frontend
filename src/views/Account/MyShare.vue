@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-tabs>
       <v-tab>我的分享</v-tab>
-      <v-tab>付费分享</v-tab>
+      <v-tab v-if="false">付费分享</v-tab>
     </v-tabs>
     <v-btn-toggle
       v-model="toggle"
@@ -26,7 +26,8 @@
               <v-col cols="7">
                 <div class="d-flex align-center">
                   <v-chip size="small" variant="text" class="text-subtitle-2">{{index}}</v-chip>
-                  <v-icon size="30">mdi-file</v-icon>
+<!--                  <v-icon size="30">mdi-file</v-icon>-->
+                  <fileicon></fileicon>
                   <div class="ml-2">
                     <v-list-item-title class="text-body-2">{{share.file.file_name}}</v-list-item-title>
                     <v-list-item-subtitle class="text-subtitle-2">上传于：{{share.file.upload_time}}</v-list-item-subtitle>
@@ -78,6 +79,7 @@ import request from "@/requests/myAxios";
 import LinkIcon from "@/components/icon/LinkIcon.vue";
 import useClipboard from 'vue-clipboard3'
 import { useToast } from 'vue-toastification'
+import Fileicon from "@/components/icon/fileicon.vue";
 const toast = useToast();
 const { toClipboard } = useClipboard()
 

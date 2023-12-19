@@ -1,7 +1,7 @@
 <template>
-  <v-container class="d-flex justify-space-between">
-    <v-sheet width="500">
-      <v-card  flat rounded="xl" color="#f7f7f7" @mouseenter="showBtn = true" @mouseleave="showBtn = false">
+  <v-container>
+    <v-sheet class="d-flex justify-space-between">
+      <v-card width="500" max-height="340" flat rounded="xl" color="#f7f7f7" @mouseenter="showBtn = true" @mouseleave="showBtn = false">
           <div class="d-flex justify-center w-100 mt-3">
             <v-avatar size="80" :image="store.account.avatar"></v-avatar>
           </div>
@@ -23,7 +23,7 @@
         </transition>
       </v-card>
 
-      <v-sheet>
+      <v-sheet width="600">
         <p class="my-4">我的动态</p>
         <div v-for="post in list" :key="post.post_id">
           <Dynamic class="my-2" :post="post" ></Dynamic>
@@ -31,7 +31,7 @@
       </v-sheet>
     </v-sheet>
 
-    <v-sheet width="600">
+    <v-sheet width="600" v-if="false">
       <v-chip>我的收益：2324.9</v-chip>
       <v-chip class="ml-3">待结算的金额：2578</v-chip>
       <v-chip class="ml-3">总共下载次数：300</v-chip>

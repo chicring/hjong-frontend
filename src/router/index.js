@@ -1,5 +1,8 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
+import {store} from "@/store/store";
+import { useToast } from 'vue-toastification'
+const toast= useToast();
 
 const routes = [
   {
@@ -64,9 +67,13 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  // 动态设置页面标题为路由的 name，如果没有 name，则使用默认标题
   document.title = to.name || '驼鹿快传';
-  next();
+  if(to.path.startsWith('/account') && Object.keys(store.value.account).length === 0) {
+    toast.warning("请先登陆")
+    router.push("/login")
+  } else {
+    next();
+  }
 });
 
 export default router

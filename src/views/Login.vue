@@ -60,7 +60,6 @@
         </v-card>
       </v-window-item>
     </v-window>
-
   </div>
 
 </template>
@@ -71,6 +70,7 @@
   import request from "@/requests/myAxios";
 
   import { useToast } from 'vue-toastification'
+  import Loading1 from "@/components/loading/loading1.vue";
 
   const toast = useToast();
   const step = ref(1)
@@ -79,7 +79,6 @@
     'email': '',
     'password': ''
   })
-
   const register = ref({
     'userName': '',
     'email': '',
@@ -98,7 +97,7 @@
         toast.success("登陆成功，马上跳转")
         setTimeout(() => {
           router.push('/');
-        }, 500);
+        }, 300);
       }else {
         toast.error(response.data.message,{
           position: "top-center",

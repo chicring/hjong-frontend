@@ -72,10 +72,10 @@
             <div class="my-4 d-flex">
               <v-avatar :image="store.account.avatar"></v-avatar>
               <div class="pa-2 w-100">
-                <p class="text-subtitle-2">{{store.account.usedSize}}MB/{{store.account.diskSize}}</p>
+                <p class="text-subtitle-2">{{store.account.usedSize}}/{{store.account.diskSize}}</p>
                 <v-progress-linear
                   height="6"
-                  model-value="20"
+                  model-value="1"
                   color="#d8bb53"
                   rounded
                 ></v-progress-linear>

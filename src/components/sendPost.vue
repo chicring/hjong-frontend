@@ -49,6 +49,7 @@ function sendPost(){
         toast.success("发布成功")
         selected = ref(Tags[7])
         active.value = false
+        location.reload()
       }
     })
 }

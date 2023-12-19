@@ -22,9 +22,10 @@
       <v-row justify="space-around">
         <v-spacer></v-spacer>
         <v-col cols="3">
-          <v-badge :content="props.post.likes_count" color="#d3e5ef" offset-y="8">
-            <v-btn size="small" flat icon="mdi-thumb-up-outline"></v-btn>
-          </v-badge>
+<!--          <v-badge :content="props.post.likes_count" color="#d3e5ef" offset-y="8">-->
+<!--            <v-btn size="small" flat icon="mdi-thumb-up-outline"></v-btn>-->
+<!--          </v-badge>-->
+          <v-btn size="small" flat icon="mdi-thumb-up-outline"></v-btn>
         </v-col>
         <v-spacer></v-spacer>
         <v-col cols="3">

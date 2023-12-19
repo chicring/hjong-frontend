@@ -5,9 +5,6 @@ import useClipboard from 'vue-clipboard3'
 import { useToast } from 'vue-toastification'
 const toast = useToast();
 
-
-
-
 const DetailShow = inject("DetailShow");
 let is_private = ref()
 const states = [6, 12, 24, 36, 48]
