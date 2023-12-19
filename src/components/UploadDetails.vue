@@ -3,9 +3,11 @@ import {ref,inject} from "vue";
 import request from "@/requests/myAxios";
 import useClipboard from 'vue-clipboard3'
 import { useToast } from 'vue-toastification'
+import EmailNotify from "@/components/EmailNotify.vue";
 const toast = useToast();
 
 const DetailShow = inject("DetailShow");
+
 let is_private = ref()
 const states = [6, 12, 24, 36, 48]
 const files = ref({
@@ -67,6 +69,12 @@ function copyAll(){
   } catch (e) {
     console.error(e)
   }
+}
+
+const diglog = ref()
+
+function openEmail(){
+  diglog.value.showComponent()
 }
 
 </script>
@@ -155,7 +163,10 @@ function copyAll(){
                 <v-icon size="100" color="success">mdi-checkbox-marked-circle</v-icon>
               </div>
               <div class="text-center text-body-1 font-weight-bold">
-                <p>已完成</p>
+                <span>已完成</span>
+                <v-row no-gutters justify="center">
+                  <v-btn variant="plain" rounded="xl" @click="openEmail">发送邮箱通知对方</v-btn>
+                </v-row>
               </div>
             </div>
 
@@ -193,6 +204,7 @@ function copyAll(){
         </v-card>
       </v-window-item>
     </v-window>
-
   </v-dialog>
+
+  <EmailNotify ref="diglog" :link="share.link"></EmailNotify>
 </template>
