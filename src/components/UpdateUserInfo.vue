@@ -90,7 +90,7 @@ function upload() {
 
     axios({
       method: 'POST',
-      url: 'http://lsky.hjong.cn/api/v1/upload',
+      url: 'http://8.130.77.166:3333/api/v1/upload',
       headers: {'Content-Type': 'multipart/form-data'},
       data: formData,
     }).then(response => {

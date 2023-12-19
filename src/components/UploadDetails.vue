@@ -206,5 +206,5 @@ function openEmail(){
     </v-window>
   </v-dialog>
 
-  <EmailNotify ref="diglog" :link="share.link"></EmailNotify>
+  <EmailNotify ref="diglog" :link="share.link" :key="share.link"></EmailNotify>
 </template>

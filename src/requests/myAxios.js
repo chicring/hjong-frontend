@@ -6,7 +6,7 @@ const toast= useToast();
 const token = localStorage.getItem('token')
 
 const request= axios.create({
-  baseURL: 'http://8.217.183.57:8888',
+  baseURL: 'http://127.0.0.1:8888',
   headers: {
     'Authorization': `Bearer ${token}`
   }

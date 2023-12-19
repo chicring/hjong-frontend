@@ -33,7 +33,7 @@ const props =defineProps({
 const dialog =ref(false)
 const email = ref({
   address: "",
-  title: store.value.account.userName + " 通过驼鹿快传分享了文件给你",
+  title: store.value.account?.userName + " 通过驼鹿快传分享了文件给你",
   content: "分享连接："+props.link
 })
 
